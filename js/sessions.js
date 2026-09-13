@@ -110,3 +110,30 @@ async function freshCode() {
   }
   return makeCode();
 }
+
+
+/* ============================================================
+   TAKING ON A SAVED MUSEUM
+
+   Opening a file, joining with a code and loading the exhibition
+   published beside the page all go through the same state update.
+   ============================================================ */
+function sessionShapeOk(data) {
+  return !!data && data.format === "student-art-museum" && Array.isArray(data.art);
+}
+
+function adoptSession(data, opts) {
+  const o = opts || {};
+  disposeAllMedia();
+  State.art = data.art;
+  State.stickers = Array.isArray(data.stickers) ? data.stickers : [];
+  State.nextId = State.art.reduce((m, a) => Math.max(m, a.id || 0), 0) + 1;
+  State.session = {
+    code: o.code !== undefined ? o.code : (data.code || null),
+    title: data.title || (o.code ? "Student Art Museum" : ""),
+    published: o.published !== undefined ? o.published : null
+  };
+  const field = $("museum-title");
+  if (field) field.value = State.session.title;
+  renderLabels();
+}

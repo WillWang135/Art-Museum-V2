@@ -267,13 +267,13 @@ $("clear-btn").addEventListener("click", () => {
 
 /* ---------- save / open ---------- */
 function saveMuseum() {
-  const blob = new Blob([JSON.stringify({
+  const blob = new Blob([JSON.stringify(relativiseToExhibition({
     format: "student-art-museum", version: 2,
     title: State.session.title || "Student Art Museum",
     code: State.session.code || null,
     saved: new Date().toISOString(),
     art: State.art, stickers: State.stickers
-  })], { type: "application/json" });
+  }))], { type: "application/json" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
   a.download = "student-art-museum.json";
@@ -286,14 +286,11 @@ $("restore-input").addEventListener("change", async e => {
   if (!f) return;
   try {
     const data = JSON.parse(await f.text());
-    if (data.format !== "student-art-museum" || !Array.isArray(data.art)) throw new Error("shape");
-    disposeAllMedia();
-    State.art = data.art;
-    State.stickers = Array.isArray(data.stickers) ? data.stickers : [];
-    State.nextId = State.art.reduce((m, a) => Math.max(m, a.id || 0), 0) + 1;
-    State.session = { code: data.code || null, title: data.title || "", published: null };
-    $("museum-title").value = State.session.title;
-    renderLabels();
+    if (!sessionShapeOk(data)) throw new Error("shape");
+    /* Saved built-in works carry folder-relative paths. Point them back at
+       exhibition/ before adopting the session. Uploaded data URLs pass
+       through unchanged. */
+    adoptSession(resolveSessionPaths(data));
   } catch (err) {
     alert("That file isn't a saved museum. Choose a student-art-museum.json file saved from this app.");
   }

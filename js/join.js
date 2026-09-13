@@ -35,14 +35,9 @@ async function joinSession(rawCode) {
       setJoinNote("Loading the artwork\u2026 " + Math.round(p * 100) + "%", "");
     });
     if (!data.art.length) throw new Error("not-found");
-    disposeAllMedia();
-    State.art = data.art;
-    State.stickers = Array.isArray(data.stickers) ? data.stickers : [];
-    State.nextId = State.art.reduce((m, a) => Math.max(m, a.id || 0), 0) + 1;
-    State.session = { code: code, title: data.title || "Student Art Museum", published: data.saved || null };
+    adoptSession(data, { code: code, published: data.saved || null });
     State.guest = true;
     applyGuestMode();
-    renderLabels();
     setJoinNote("Found it. Opening the doors\u2026", "ok");
     enterMuseum();
   } catch (err) {
