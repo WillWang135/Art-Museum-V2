@@ -61,7 +61,10 @@ function markLockBlocked() {
 }
 function tryPointerLock() {
   const el = $("gl");
-  if (isTouchOnly() || !el.requestPointerLock) { markLockBlocked(); return false; }
+  /* This is only called from a real mouse click. Some Windows convertibles
+     still report themselves as touch-only while a mouse or trackpad is in
+     use, so do not reject the request from the media query alone. */
+  if (!el.requestPointerLock) { markLockBlocked(); return false; }
   if (performance.now() < lockRetryAt) return false;
   try {
     const req = el.requestPointerLock();
@@ -74,7 +77,7 @@ function tryPointerLock() {
 /* Clicking empty wall swaps between walking (pointer captured, moving the
    mouse turns your head) and a free cursor for the HUD. Esc still works,
    and clicking a work or a sticker does that instead of toggling. */
-let toldAboutToggle = false;
+let toldAboutToggle = false, suppressLookClickAt = 0;
 
 function releaseLook(explain) {
   if (document.pointerLockElement) document.exitPointerLock();
@@ -117,12 +120,7 @@ $("gl").addEventListener("mousedown", e => {
   if (e.button !== 0 || overlayOpen()) return;
   if (performance.now() - lastTouchAt < 700) return;   // synthetic click after a tap
   e.preventDefault();
-  if (locked) {
-    /* Captured, so the reticle is the pointer: use whatever it is on, and
-       hand the cursor back when it is on nothing in particular. */
-    if (!act(null)) releaseLook(true);
-    return;
-  }
+  if (locked) return;                 // the click event performs the toggle
   /* Not captured. Whether this turns out to be a click or a drag is decided
      on release - asking for the pointer now would snatch it from someone who
      only meant to drag the view around. */
@@ -134,9 +132,24 @@ window.addEventListener("mouseup", e => {
   lookDrag = null;
   $("gl").classList.remove("dragging");
   if (locked) return;                               // lock arrived during the press
-  if (d.moved >= 6) return;                         // a drag, not a click
-  if (act({ clientX: d.sx, clientY: d.sy })) return;   // landed on a work or sticker
-  tryPointerLock();                                 // empty wall: take the pointer
+  if (d.moved >= 6) suppressLookClickAt = performance.now(); // a drag, not a click
+});
+/* Requesting pointer lock directly from click is accepted consistently by
+   Chrome, Edge and Firefox on Windows. While captured, every click is the
+   explicit second half of the toggle and releases the cursor. With a free
+   cursor, artwork keeps its normal click action and empty space takes it. */
+$("gl").addEventListener("click", e => {
+  if (e.button !== 0 || overlayOpen()) return;
+  if (performance.now() - lastTouchAt < 700) return;
+  e.preventDefault();
+  if (performance.now() - suppressLookClickAt < 150) {
+    suppressLookClickAt = 0;
+    return;
+  }
+  suppressLookClickAt = 0;
+  if (locked) { releaseLook(true); return; }
+  if (act(e)) return;
+  tryPointerLock();
 });
 window.addEventListener("blur", () => { lookDrag = null; $("gl").classList.remove("dragging"); });
 $("gl").addEventListener("wheel", e => {
