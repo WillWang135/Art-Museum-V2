@@ -17,12 +17,18 @@
 
 .reticle{
   position:absolute;left:50%;top:50%;width:20px;height:20px;margin:-10px 0 0 -10px;
-  opacity:.75;transition:opacity .2s,transform .2s;
+  opacity:.75;transform:scale(1);transform-origin:50% 50%;
+  transition:transform 180ms cubic-bezier(.4,0,.2,1),opacity 180ms ease;
+  will-change:transform,opacity;
 }
 .reticle::before,.reticle::after{content:"";position:absolute;background:#fff;box-shadow:0 0 3px rgba(0,0,0,.6)}
 .reticle::before{left:9px;top:3px;width:2px;height:14px}
 .reticle::after{left:3px;top:9px;width:14px;height:2px}
-.reticle.aim{transform:scale(1.5);opacity:1}
+.reticle.aim{
+  transform:scale(1.33);opacity:1;
+  transition-duration:140ms,140ms;
+  transition-timing-function:cubic-bezier(.2,.75,.25,1),ease-out;
+}
 
 .hint{
   position:absolute;left:50%;top:calc(50% + 26px);transform:translateX(-50%);
