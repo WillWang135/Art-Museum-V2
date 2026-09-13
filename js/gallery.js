@@ -251,6 +251,12 @@ function hangArtwork(art, pos, normal, scale, isFeature) {
 }
 
 /* ---------- lights ---------- */
+/* Keep the feature wall quieter than the artwork while giving the work its
+   own soft, angled illumination. These are slightly dimmer than the original
+   dev-branch lighting so bright artwork retains colour and highlight detail. */
+const FEATURE_KEY = 0.32;
+const FEATURE_WASH = 0.86;
+
 function buildLights() {
   const hi = quality === "high";
   root.add(new THREE.HemisphereLight(0xFFF4E4, 0xBCA184, 0.62));
@@ -265,10 +271,17 @@ function buildLights() {
   root.add(dirLight); root.add(dirLight.target);
 
   featureSpots = [];
-  [-2.9, 2.9].forEach(dx => {
-    const s = new THREE.SpotLight(0xFFF3DE, 2.9, 24, 0.46, 0.62, 1.2);
-    s.position.set(dx, 7.8, 6.0);
-    s.target.position.set(dx * 0.28, 2.45, 0);
+  [-3.4, 3.4].forEach(dx => {
+    const s = new THREE.SpotLight(0xFFF3DE, FEATURE_WASH, 24, 0.50, 0.88, 1.2);
+    s.position.set(dx, 7.8, 5.4);
+    s.target.position.set(dx * 1.25, 2.1, 0);
+    root.add(s); root.add(s.target);
+    featureSpots.push(s);
+  });
+  [-3.05, 3.05].forEach(dx => {
+    const s = new THREE.SpotLight(0xFFF6EA, FEATURE_KEY, 17, 0.44, 0.95, 1.5);
+    s.position.set(dx, 6.3, 4.7);
+    s.target.position.set(0, 2.45, 0.1);
     root.add(s); root.add(s.target);
     featureSpots.push(s);
   });
