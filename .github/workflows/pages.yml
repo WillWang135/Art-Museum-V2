@@ -26,6 +26,8 @@ jobs:
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       # The scripts share one scope, so a file may only use what the files
       # above it define. This fails the deploy if that rule is broken.
