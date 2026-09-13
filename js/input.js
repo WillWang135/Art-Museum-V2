@@ -80,6 +80,7 @@ function tryPointerLock() {
 let toldAboutToggle = false, suppressLookClickAt = 0;
 
 function releaseLook(explain) {
+  resumeLookAfterOverlay = false;
   if (document.pointerLockElement) document.exitPointerLock();
   if (explain && !toldAboutToggle) {
     toldAboutToggle = true;

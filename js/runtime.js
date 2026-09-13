@@ -25,7 +25,7 @@ const Visitors = [];
 const VisitorObjs = [];        // their groups, so the reticle can pick them out
 const keys = Object.create(null);
 let avatar = null, avatarParts = null, raycaster = null;
-let running = false, locked = false, stamp = null;
+let running = false, locked = false, resumeLookAfterOverlay = false, stamp = null;
 let fov = 62, fovTarget = 62;
 let mapOn = true, lastSpot = 0, lastMap = 0, lastAim = 0, hoverFrame = null;
 const touchState = { move: null, look: null, mx: 0, mz: 0 };

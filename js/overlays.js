@@ -15,10 +15,22 @@ function releaseOverlayMedia() {
     if (pool && el.parentNode !== pool) pool.appendChild(el);
   });
 }
+/* An overlay needs a free cursor, but opening one from the center crosspoint
+   is only a temporary suspension of navigation. Its Close/Escape gesture
+   can hand the pointer straight back to the gallery. */
+function suspendLookForOverlay() {
+  if (locked || document.pointerLockElement === $("gl")) {
+    resumeLookAfterOverlay = true;
+  }
+  if (document.pointerLockElement) document.exitPointerLock();
+}
 function closeOverlay() {
+  const resume = resumeLookAfterOverlay && running;
+  resumeLookAfterOverlay = false;
   releaseOverlayMedia();
   overlayRoot().innerHTML = "";
   needsRender = true;
+  if (resume) tryPointerLock();
 }
 function overlayOpen() { return overlayRoot().childElementCount > 0; }
 
@@ -57,7 +69,7 @@ function syncOpenPlaylistPanel() {
 /* art defaults to whatever hangs in the frame. A track that only has a strip
    on the wall passes itself instead, so it can be opened like anything else. */
 function openArtwork(frame, art) {
-  if (document.pointerLockElement) document.exitPointerLock();
+  suspendLookForOverlay();
   const a = art || frame.art;
   const isFeature = frame.isFeature && a === frame.art;
   const num = State.art.indexOf(a) + 1;
@@ -175,7 +187,7 @@ function openArtwork(frame, art) {
 function openPlaylistPanel(rec) {
   if (!rec) rec = featurePanel();
   if (!rec) return;
-  if (document.pointerLockElement) document.exitPointerLock();
+  suspendLookForOverlay();
 
   const tracks = playlistTracks();
   const veil = document.createElement("div");
@@ -232,7 +244,7 @@ function openPlaylistPanel(rec) {
 }
 
 function openHelp() {
-  if (document.pointerLockElement) document.exitPointerLock();
+  suspendLookForOverlay();
   const veil = document.createElement("div");
   veil.className = "veil";
   veil.innerHTML =
