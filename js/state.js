@@ -33,5 +33,5 @@ const SVG = {
 
 /* ---------- exhibition title ---------- */
 function museumTitle() {
-  return (State.session.title || "").trim() || "Student Art Museum";
+  return (State.session.title || "").trim() || "Art Museum";
 }

@@ -269,7 +269,7 @@ $("clear-btn").addEventListener("click", () => {
 function saveMuseum() {
   const blob = new Blob([JSON.stringify(relativiseToExhibition({
     format: "student-art-museum", version: 2,
-    title: State.session.title || "Student Art Museum",
+    title: State.session.title || "Art Museum",
     code: State.session.code || null,
     saved: new Date().toISOString(),
     art: State.art, stickers: State.stickers

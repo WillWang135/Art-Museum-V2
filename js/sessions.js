@@ -130,7 +130,7 @@ function adoptSession(data, opts) {
   State.nextId = State.art.reduce((m, a) => Math.max(m, a.id || 0), 0) + 1;
   State.session = {
     code: o.code !== undefined ? o.code : (data.code || null),
-    title: data.title || (o.code ? "Student Art Museum" : ""),
+    title: data.title || (o.code ? "Art Museum" : ""),
     published: o.published !== undefined ? o.published : null
   };
   const field = $("museum-title");

@@ -7,7 +7,7 @@
 const LED_VIEW = 2 / 3;              // fraction of the strip the ring shows
 
 function ledTitleTexture(title) {
-  const text = (title || "Student Art Museum").toUpperCase();
+  const text = (title || "Art Museum").toUpperCase();
   /* 4096x512 keeps the strip at 8:1, which is the ratio the ring geometry
      below is built to. Matching the two is what stops the text stretching. */
   const W = 4096, H = 512;

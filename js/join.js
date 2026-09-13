@@ -13,7 +13,7 @@ function applyGuestMode() {
   if (State.guest) {
     $("mast-eyebrow").textContent = "Shared exhibition";
     $("mast-standfirst").textContent = "Walk the galleries, read the wall labels, and celebrate the work you like best.";
-    $("session-title").textContent = State.session.title || "Student Art Museum";
+    $("session-title").textContent = State.session.title || "Art Museum";
     const n = State.art.length;
     $("session-meta").textContent =
       n + (n === 1 ? " work" : " works") + " \u00b7 join code " + prettyCode(State.session.code);

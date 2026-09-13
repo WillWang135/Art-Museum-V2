@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Student Art Museum</title>
+<title>Art Museum</title>
 
 <!-- Order matters: base sets the variables, responsive overrides last. -->
 <link rel="stylesheet" href="css/base.css">
@@ -20,27 +20,26 @@
     <header class="masthead">
       <div class="mast-text">
         <div class="eyebrow" id="mast-eyebrow">Exhibition setup</div>
-        <h1>Student Art&nbsp;Museum</h1>
+        <h1>Art&nbsp;Museum</h1>
         <p class="standfirst" id="mast-standfirst">Add the artwork, write the wall labels, then walk the galleries. The floorplan below grows as you go.</p>
         <div class="titlerow" id="titlerow">
           <label for="museum-title">Exhibition title</label>
           <input id="museum-title" class="titlefield-home" maxlength="60" autocomplete="off"
-                 placeholder="Student Art Museum">
+                 placeholder="Art Museum">
           <span class="titlehint">Shown on the display above the feature wall.</span>
         </div>
       </div>
       <div class="joinbox" id="joinbox">
-        <span class="eyebrow">Have a join code?</span>
-        <input id="join-input" class="code-input" placeholder="ABC234" maxlength="9"
-               autocomplete="off" autocorrect="off" spellcheck="false" aria-label="Join code">
-        <button class="btn btn-primary" id="join-btn" type="button">Join museum</button>
-        <p class="joinnote" id="join-note">Six characters from your teacher.</p>
+        <span class="eyebrow">Coming soon</span>
+        <input id="join-input" hidden>
+        <button id="join-btn" type="button" hidden></button>
+        <p id="join-note" hidden></p>
       </div>
     </header>
 
     <section class="session-card hidden" id="session-card">
       <div class="eyebrow">You are visiting</div>
-      <h2 id="session-title">Student Art Museum</h2>
+      <h2 id="session-title">Art Museum</h2>
       <p class="sub" id="session-meta"></p>
       <div class="row">
         <button class="btn btn-primary" id="reenter-btn" type="button">Enter museum</button>
@@ -60,7 +59,7 @@
     <section class="intake">
       <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Add artwork images">
         <strong>Drop artwork here</strong>
-        <span>PNG, JPG, MP3, MP4 or MOV &middot; one at a time or the whole class at once</span>
+        <span>PNG, JPG, MP3 &middot; one at a time or the whole class at once</span>
         <button class="btn btn-primary" id="browse-btn" type="button">Choose images</button>
         <input id="file-input" type="file" accept="image/png,image/jpeg,image/jpg,video/mp4,video/quicktime,audio/mpeg,.png,.jpg,.jpeg,.mp3,.mp4,.mov" multiple hidden>
         <input id="cover-input" type="file" accept="image/png,image/jpeg,image/jpg,.png,.jpg,.jpeg" hidden>
