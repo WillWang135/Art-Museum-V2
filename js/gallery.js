@@ -251,11 +251,11 @@ function hangArtwork(art, pos, normal, scale, isFeature) {
 }
 
 /* ---------- lights ---------- */
-/* Keep the feature wall quieter than the artwork while giving the work its
-   own soft, angled illumination. These are slightly dimmer than the original
-   dev-branch lighting so bright artwork retains colour and highlight detail. */
-const FEATURE_KEY = 0.32;
-const FEATURE_WASH = 0.86;
+/* How hard the two lamps on the feature work are driven, and how hard the
+   two washes either side of it are. Named because they were set by
+   measurement rather than by eye. */
+const FEATURE_KEY = 0.36;
+const FEATURE_WASH = 0.95;
 
 function buildLights() {
   const hi = quality === "high";
