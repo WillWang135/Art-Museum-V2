@@ -27,6 +27,7 @@ const keys = Object.create(null);
 let avatar = null, avatarParts = null, raycaster = null;
 let running = false, locked = false, resumeLookAfterOverlay = false, stamp = null;
 let fov = 62, fovTarget = 62;
+let reticleScale = 1, reticleScaleTarget = 1;
 let mapOn = true, lastSpot = 0, lastMap = 0, lastAim = 0, hoverFrame = null;
 const touchState = { move: null, look: null, mx: 0, mz: 0 };
 

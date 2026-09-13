@@ -105,6 +105,16 @@ function applyQuality() {
   resize();
 }
 
+/* Frame-driven rather than a CSS transform transition: Windows devices can
+   suppress compositor transitions through browser or system animation
+   settings. This keeps the response equally smooth on every platform. */
+function updateReticleScale(dt) {
+  const speed = reticleScaleTarget > reticleScale ? 20 : 16;
+  reticleScale += (reticleScaleTarget - reticleScale) * (1 - Math.exp(-speed * dt));
+  if (Math.abs(reticleScaleTarget - reticleScale) < 0.001) reticleScale = reticleScaleTarget;
+  $("reticle").style.transform = "scale(" + reticleScale.toFixed(3) + ")";
+}
+
 /* ---------- loop ---------- */
 function frameLoop() {
   if (!running) return;
@@ -123,6 +133,7 @@ function frameLoop() {
   updateMediaControlFade(dt);   // badges appear when you look at a work
   updateMusicPanels(dt, t);     // waveforms fill as their tracks run
   updateMusicBadgeFade(dt);     // the play badge on a track's picture
+  updateReticleScale(dt);
 
   if (now - lastMap > 90) { lastMap = now; paintMinimap(); }
 
@@ -133,6 +144,7 @@ function frameLoop() {
     hoverFrame = near && hit.frame ? hit.frame : null;
     const r = $("reticle"), hn = $("hint");
     r.classList.toggle("aim", !!near);
+    reticleScaleTarget = near ? 1.33 : 1;
     if (near && hit.visitor) hint(hn, performance.now() - hit.visitor.askedAt < VISITOR_COOLDOWN
       ? "They have just moved" : "Click to ask them to move");
     else if (near && stamp === "erase" && hit.sticker) hint(hn, "Click to remove this sticker");
