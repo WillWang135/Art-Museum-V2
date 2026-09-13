@@ -135,9 +135,10 @@ window.addEventListener("mouseup", e => {
   if (d.moved >= 6) suppressLookClickAt = performance.now(); // a drag, not a click
 });
 /* Requesting pointer lock directly from click is accepted consistently by
-   Chrome, Edge and Firefox on Windows. While captured, every click is the
-   explicit second half of the toggle and releases the cursor. With a free
-   cursor, artwork keeps its normal click action and empty space takes it. */
+   Chrome, Edge and Firefox on Windows. While captured, the centered reticle
+   gets first chance to act; only an unhandled click releases the cursor.
+   With a free cursor, artwork keeps its normal action and empty space takes
+   the pointer. */
 $("gl").addEventListener("click", e => {
   if (e.button !== 0 || overlayOpen()) return;
   if (performance.now() - lastTouchAt < 700) return;
@@ -147,7 +148,10 @@ $("gl").addEventListener("click", e => {
     return;
   }
   suppressLookClickAt = 0;
-  if (locked) { releaseLook(true); return; }
+  if (locked) {
+    if (!act(null)) releaseLook(true);
+    return;
+  }
   if (act(e)) return;
   tryPointerLock();
 });
