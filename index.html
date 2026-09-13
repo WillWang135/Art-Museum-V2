@@ -29,12 +29,50 @@
           <span class="titlehint">Shown on the display above the feature wall.</span>
         </div>
       </div>
-      <div class="joinbox" id="joinbox">
-        <span class="eyebrow">Coming soon</span>
-        <input id="join-input" hidden>
-        <button id="join-btn" type="button" hidden></button>
-        <p id="join-note" hidden></p>
-      </div>
+      <aside class="artwork-quote" data-testid="artwork-decoration">
+        <svg class="artwork-composition" viewBox="0 0 430 230" aria-hidden="true" focusable="false">
+          <path class="artwork-arch" d="M72 163 C91 54 157 24 228 25 C307 26 353 77 366 151"/>
+          <path class="artwork-stroke artwork-stroke-strong" d="M24 66 C78 65 105 54 143 38"/>
+          <path class="artwork-stroke artwork-stroke-soft" d="M42 76 C76 78 98 71 119 60"/>
+          <path class="artwork-stroke artwork-stroke-strong" d="M272 191 C315 184 350 185 405 198"/>
+          <path class="artwork-stroke artwork-stroke-soft" d="M302 203 C333 199 357 202 385 211"/>
+
+          <g class="artwork-butterfly artwork-butterfly-top" transform="translate(365 43) rotate(14)">
+            <path d="M0 8 C-7 -7 -25 -13 -29 -2 C-32 8 -17 17 -2 14 Z"/>
+            <path d="M2 8 C10 -7 27 -10 30 1 C32 11 17 18 3 14 Z"/>
+            <path d="M-1 13 C-12 15 -18 24 -10 28 C-3 31 2 22 2 15 Z"/>
+            <path d="M3 13 C14 15 19 24 11 28 C4 31 0 22 0 15 Z"/>
+            <path class="artwork-butterfly-detail" d="M1 5 C-1 11 -1 18 1 24"/>
+            <path class="artwork-butterfly-detail" d="M0 6 C-5 1 -7 -2 -8 -5 M2 6 C7 1 9 -2 10 -5"/>
+          </g>
+          <g class="artwork-butterfly artwork-butterfly-bottom" transform="translate(66 184) rotate(-18) scale(.72)">
+            <path d="M0 8 C-7 -7 -25 -13 -29 -2 C-32 8 -17 17 -2 14 Z"/>
+            <path d="M2 8 C10 -7 27 -10 30 1 C32 11 17 18 3 14 Z"/>
+            <path d="M-1 13 C-12 15 -18 24 -10 28 C-3 31 2 22 2 15 Z"/>
+            <path d="M3 13 C14 15 19 24 11 28 C4 31 0 22 0 15 Z"/>
+            <path class="artwork-butterfly-detail" d="M1 5 C-1 11 -1 18 1 24"/>
+          </g>
+
+          <g class="artwork-botanical">
+            <path d="M98 190 C116 178 126 164 132 145"/>
+            <path d="M116 174 C107 169 101 162 101 154 C110 155 118 162 119 170"/>
+            <path d="M126 158 C137 155 143 149 146 141 C136 140 128 146 125 154"/>
+          </g>
+          <g class="artwork-dots">
+            <circle cx="55" cy="112" r="2.5"/>
+            <circle cx="67" cy="103" r="1.5"/>
+            <circle cx="384" cy="132" r="2"/>
+            <circle cx="394" cy="143" r="1.25"/>
+          </g>
+        </svg>
+        <p class="artwork-message" data-testid="artwork-message">
+          <span>Create something beautiful today.</span>
+          <span>Your next masterpiece starts here.</span>
+        </p>
+      </aside>
+      <input id="join-input" hidden>
+      <button id="join-btn" type="button" hidden></button>
+      <p id="join-note" hidden></p>
     </header>
 
     <section class="session-card hidden" id="session-card">

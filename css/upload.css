@@ -9,6 +9,26 @@
 .masthead{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:38px;align-items:end;
   border-bottom:1px solid var(--hairline);padding-bottom:26px}
 .mast-text{min-width:0}
+.artwork-quote{
+  position:relative;align-self:stretch;justify-self:center;width:min(100%,430px);min-height:230px;
+  display:flex;align-items:center;justify-content:center;
+}
+.artwork-message{
+  position:relative;z-index:1;margin:0;color:var(--slate);
+  font-family:var(--display);font-size:clamp(19px,2.45vw,25px);
+  font-style:italic;font-weight:600;letter-spacing:-.015em;line-height:1.35;text-align:center;
+}
+.artwork-message span{display:block;white-space:nowrap}
+.artwork-composition{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.artwork-arch{fill:none;stroke:var(--hairline);stroke-width:1.2;stroke-dasharray:2 6;opacity:.72}
+.artwork-stroke{fill:none;stroke:var(--viridian);stroke-linecap:round}
+.artwork-stroke-strong{stroke-width:1.4;opacity:.42}
+.artwork-stroke-soft{stroke-width:.75;opacity:.25}
+.artwork-butterfly{fill:var(--viridian);opacity:.46}
+.artwork-butterfly-detail{fill:none;stroke:var(--viridian);stroke-width:1.6;stroke-linecap:round}
+.artwork-butterfly-bottom{opacity:.32}
+.artwork-botanical{fill:none;stroke:var(--faint);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;opacity:.52}
+.artwork-dots{fill:var(--saffron);opacity:.4}
 
 /* join code */
 .joinbox{border:1px solid var(--hairline);background:var(--plate);padding:18px;width:280px;box-shadow:var(--shadow)}
